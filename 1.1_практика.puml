@@ -1,0 +1,29 @@
+@startuml 1.1
+actor Deanery
+actor Student
+actor Group
+actor Course
+
+Deanery -> Student: acceptStudent(student)
+Student -> Group: addStudent(student)
+Group -> Deanery: notifyGroupChange()
+
+Deanery -> Student: expelStudent(student)
+Student -> Group: removeStudent(student)
+Group -> Deanery: notifyGroupChange()
+
+Deanery -> Student: transferStudent(student, group)
+Student -> Group: removeStudent(student)
+Group -> Deanery: notifyGroupChange()
+Student -> Group: addStudent(student)
+Group -> Deanery: notifyGroupChange()
+
+Deanery -> Student: transferStudent(student, course)
+Student -> Course: removeStudent(student)
+Course -> Deanery: notifyCourseChange()
+Student -> Course: addStudent(student)
+Course -> Deanery: notifyCourseChange()
+
+Deanery -> Student: getStudentPerformance(student)
+Student -> Deanery: returnPerformance()
+@enduml
