@@ -1,0 +1,18 @@
+@startuml
+node "Server" {
+  artifact "Информационная система деканата" as app
+  database "База данных студентов" as db
+}
+
+node "Student" {
+  component "Клиентское приложение" as client
+}
+
+node "Dean" {
+  component "Клиентское приложение" as client2
+}
+
+client -down-> app
+client2 -down-> app
+app -right-> db
+@enduml
