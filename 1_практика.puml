@@ -1,21 +1,45 @@
-@startuml 1
-skinparam componentStyle um12
-
-package "Деканат"{
-    [Информационная система] as IS
+@startuml
+class Student {
+  - id: string
+  - name: string
+  - group: Group
+  - course: Course
+  + enroll()
+  + expel()
+  + transferGroup(group: Group)
+  + transferCourse(course: Course)
 }
 
-IS - [Список студентов на зачисление]
-IS - [Список студентов на отчисление]
-IS - [Учет успеваемости]
-IS - [Учет студентов]
-IS - [Группа]
-IS - [Курс]
+class Group {
+  - id: string
+  - name: string
+  - students: List<Student>
+  + addStudent(student: Student)
+  + removeStudent(student: Student)
+}
 
-[Список студентов на зачисление] ..> [Учет студентов]: содержит
-[Список студентов на отчисление] ..> [Учет студентов]: содержит
-[Учет успеваемости] ..> [Учет студентов]: содержит
-[Группа] ..> [Учет студентов]: содержит
-[Курс] ..> [Учет студентов]: содержит
+class Course {
+  - id: string
+  - name: string
+  - students: List<Student>
+  + addStudent(student: Student)
+  + removeStudent(student: Student)
+}
 
+class Deanery {
+  - students: List<Student>
+  - groups: List<Group>
+  - courses: List<Course>
+  + acceptStudent(student: Student)
+  + expelStudent(student: Student)
+  + transferStudent(student: Student, group: Group)
+  + transferStudent(student: Student, course: Course)
+  + getStudentPerformance(student: Student)
+}
+
+Student --* Group
+Student --* Course
+Deanery --* Student
+Deanery --* Group
+Deanery --* Course
 @enduml
