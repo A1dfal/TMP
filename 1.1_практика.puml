@@ -1,29 +1,24 @@
 @startuml 1.1
-actor Deanery
-actor Student
-actor Group
-actor Course
+actor Декан
+actor Студент
+actor Администратор
 
-Deanery -> Student: acceptStudent(student)
-Student -> Group: addStudent(student)
-Group -> Deanery: notifyGroupChange()
+usecase "Прием студента" as UC1
+usecase "Отчисление студента" as UC2
+usecase "Перевод студента в другую группу" as UC3
+usecase "Перевод студента на другой курс" as UC4
+usecase "Учет успеваемости студента" as UC5
 
-Deanery -> Student: expelStudent(student)
-Student -> Group: removeStudent(student)
-Group -> Deanery: notifyGroupChange()
+Декан -> UC1
+Декан -> UC2
+Декан -> UC3
+Декан -> UC4
+Декан -> UC5
 
-Deanery -> Student: transferStudent(student, group)
-Student -> Group: removeStudent(student)
-Group -> Deanery: notifyGroupChange()
-Student -> Group: addStudent(student)
-Group -> Deanery: notifyGroupChange()
+Студент -> UC1
+Студент -> UC2
+Студент -> UC3
+Студент -> UC4
 
-Deanery -> Student: transferStudent(student, course)
-Student -> Course: removeStudent(student)
-Course -> Deanery: notifyCourseChange()
-Student -> Course: addStudent(student)
-Course -> Deanery: notifyCourseChange()
-
-Deanery -> Student: getStudentPerformance(student)
-Student -> Deanery: returnPerformance()
+Администратор -> UC5
 @enduml
